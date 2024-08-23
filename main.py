@@ -3,7 +3,7 @@ import sys
 import json
 import time
 import requests
-import websocket
+from websocket import create_connection, WebSocketConnectionClosedException, WebSocketException
 
 # Status variables
 status = "idle"  # Options: "online", "dnd", "idle"
@@ -33,7 +33,7 @@ userid = userinfo["id"]
 def onliner(token, status):
     try:
         print("Connecting to WebSocket...")
-        ws = websocket.create_connection("wss://gateway.discord.gg/?v=9&encoding=json")
+        ws = create_connection("wss://gateway.discord.gg/?v=9&encoding=json")
         print("WebSocket connected.")
         
         start = json.loads(ws.recv())
@@ -76,9 +76,9 @@ def onliner(token, status):
         online = {"op": 1, "d": "None"}
         time.sleep(heartbeat / 1000)
         ws.send(json.dumps(online))
-    except websocket.WebSocketConnectionClosedException as e:
+    except WebSocketConnectionClosedException as e:
         print(f"[ERROR] WebSocket connection was closed: {e}")
-    except websocket.WebSocketException as e:
+    except WebSocketException as e:
         print(f"[ERROR] WebSocket error occurred: {e}")
     except Exception as e:
         print(f"[ERROR] An unexpected error occurred: {e}")
