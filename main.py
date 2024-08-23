@@ -10,7 +10,7 @@ app = Flask(__name__)
 
 # Status variables
 status = "dnd"  # Options: "online", "dnd", "idle"
-custom_status = ":pink_heart:"  # Custom status message; set to "" if not needed
+custom_status = ""  # Custom status message; set to "" if not needed
 
 # Fetch user token from environment variables
 usertoken = os.getenv("TOKEN")
