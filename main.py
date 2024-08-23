@@ -4,6 +4,9 @@ import json
 import time
 import requests
 import websocket as ws_client  # Alias to avoid conflicts
+from flask import Flask
+
+app = Flask(__name__)
 
 # Status variables
 status = "idle"  # Options: "online", "dnd", "idle"
@@ -91,5 +94,15 @@ def run_onliner():
         onliner(usertoken, status)
         time.sleep(50)
 
-# Start the main function to run the onliner
-run_onliner()
+@app.route('/')
+def home():
+    return "The app is running and the bot is online."
+
+if __name__ == '__main__':
+    # Start the onliner function in a separate thread or process if needed
+    import threading
+    threading.Thread(target=run_onliner).start()
+
+    # Run Flask server on the Railway-assigned port
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
