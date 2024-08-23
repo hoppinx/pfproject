@@ -9,8 +9,8 @@ from flask import Flask
 app = Flask(__name__)
 
 # Status variables
-status = "idle"  # Options: "online", "dnd", "idle"
-custom_status = "busy"  # Custom status message; set to "" if not needed
+status = "dnd"  # Options: "online", "dnd", "idle"
+custom_status = ""  # Custom status message; set to "" if not needed
 
 # Fetch user token from environment variables
 usertoken = os.getenv("TOKEN")
