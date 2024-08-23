@@ -96,7 +96,7 @@ def run_onliner():
 
 @app.route('/')
 def home():
-    return "The app is running and the bot is online."
+    return "The app is running."
 
 if __name__ == '__main__':
     # Start the onliner function in a separate thread or process if needed
