@@ -33,8 +33,7 @@ userid = userinfo["id"]
 def onliner(token, status):
     try:
         print("Connecting to WebSocket...")
-        ws = websocket.WebSocket()
-        ws.connect("wss://gateway.discord.gg/?v=9&encoding=json")
+        ws = websocket.create_connection("wss://gateway.discord.gg/?v=9&encoding=json")
         print("WebSocket connected.")
         
         start = json.loads(ws.recv())
