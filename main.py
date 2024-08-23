@@ -48,7 +48,10 @@ def onliner(token, status):
                     "$browser": "Google Chrome",
                     "$device": "Windows",
                 },
-                "presence": {"status": status, "afk": False},
+                "presence": {
+                    "status": status,
+                    "afk": False
+                },
             },
             "s": None,
             "t": None,
@@ -68,4 +71,25 @@ def onliner(token, status):
                     }
                 ],
                 "status": status,
-                
+                "afk": False,
+            }
+        }
+        ws.send(json.dumps(cstatus))
+        
+        online = {"op": 1, "d": "None"}
+        time.sleep(heartbeat / 1000)
+        ws.send(json.dumps(online))
+    except ws_client.WebSocketConnectionClosedException as e:
+        print(f"[ERROR] WebSocket connection was closed: {e}")
+    except ws_client.WebSocketException as e:
+        print(f"[ERROR] WebSocket error occurred: {e}")
+    except Exception as e:
+        print(f"[ERROR] An unexpected error occurred: {e}")
+
+def run_onliner():
+    while True:
+        onliner(usertoken, status)
+        time.sleep(50)
+
+# Start the main function to run the onliner
+run_onliner()
